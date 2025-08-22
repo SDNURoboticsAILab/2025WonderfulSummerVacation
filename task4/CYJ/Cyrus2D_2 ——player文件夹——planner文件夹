@@ -1,0 +1,65 @@
+# Cyrus2D_2 
+
+## player文件夹——planner文件夹
+
+### actgen_action_chain_length_filter.h          基于动作链长度的最大阈值、最小阈值及范围阈值过滤并调用内部生成器生成动作。
+### actgen_cross.cpp          筛选出目标球员有效的行动
+### actgen_cross.h             声明了用于生成动作状态对的纯虚函数generate
+### actgen_direct_pass.cpp      用于生成直接传球的动作状态对，通过检查历史传球情况、筛选有效队友目标、计算传球速度和时间等，生成合理的传球动作及对应的预测状态。
+### actgen_direct_pass.h           包含构造函数、析构函数及生成动作状态对的 generate 
+### actgen_self_pass.cpp           在特定比赛模式且路径为空时，添加自传球候选动作及对应预测状态。
+### actgen_self_pass.h           包含生成自传球动作的generate方法。
+### actgen_shoot.cpp          用于在满足持球者位置准确性和射门条件时生成射门动作及对应的预测状态。
+### actgen_shoot.h        包含生成射门动作的generate方法。
+### actgen_short_dribble.cpp          生成短距离带球动作候选。
+### actgen_short_dribble.h            用于短距离带球动作。
+### actgen_simple_dribble.h       用于生成简单的带球动作。
+### actgen_simple_dribble.cpp        生成多个方向和距离的简单带球动作候选。
+### actgen_strict_check_pass.cpp              生成严格检查的传球动作候选。
+### actgen_strict_check_pass.h       用于生成严格检查的传球动作。
+### action_chain_graph.cpp               包括计算结果、搜索动作链、评估危险度等功能。
+### action_chain_graph.h                包含相关成员变量、方法声明，用于生成和评估动作链。
+### bhv_strict_check_shoot.cpp           实现了严格检查射门的行为，通过ShootGenerator获取射门路线，计算最佳射门并执行智能踢球动作。
+### bhv_strict_check_shoot.h             声明了严格检查射门的类Bhv_StrictCheckShoot，包含执行射门动作的方法。
+### bhv_planned_action.cpp                实现了计划好的动作行为，根据动作链图中的首个动作类型（射门、带球、持球、传球、移动等）执行相应操作。
+### bhv_planned_action.h            声明了计划动作的类Bhv_PlannedAction，包含根据动作链图执行动作的方法。
+### body_force_shoot.cpp                 实现了强制射门的身体动作，向对方球门方向踢球，优先使用单步踢球，失败则尝试智能踢球。
+### body_force_shoot.h              声明了强制射门的类Body_ForceShoot，包含其构造函数和执行射门的方法。
+### action_chain_holder.h            声明了动作链持有者类ActionChainHolder，用于保存和更新动作链图等信息。
+### action_chain_holder.cpp       实现了动作链持有者类的方法，包括单例实例化、更新动作链图等。 
+### action_state_pair.h             用于存储协作动作及其执行时的预测状态的配对，包含相关构造函数和访问方法。
+### action_generator.h             用于生成动作-状态对链，复合类可聚合多个生成器并调用其生成方法。
+### bhv_normal_dribble.cpp             具体处理正常带球的执行逻辑，包括转身、冲刺等动作及相关判断。
+### bhv_normal_dribble.h            用于实现正常带球动作，包含目标点等成员变量和执行方法声明。
+### bhv_pass_kick_find_receiver.cpp           传球找接球者意图的执行与完成判断和执行传球动作，包括检查接球者、转向接球者、踢球等
+### clear_generator.h           包含单例实例、生成清除动作等方法及相关成员变量，用于生成清除球的合作动作方案。
+### clear_generator.cpp               包括构造函数、清除动作生成、对手到达步数预测等，具体处理清除球动作的逻辑。
+### cooperative_action.h               包含动作类别、执行者、目标点等属性及相关设置和获取方法，作为合作动作的基类。
+### cooperative_action.cpp                   为合作动作提供基础功能实现。
+### clear_ball.h              用于表示清除球的具体动作，包含相应构造函数。
+### clear_ball.cpp                 初始化清除球动作的相关属性。
+### cross_generator.h    和   cross_generator.cpp              用于生成传中合作动作，包含单例、传中动作生成、参与者更新等方法及逻辑。
+### field_evaluator.h          包含纯虚的评估函数  operator  ，用于评估世界模型，并有保护构造函数防止实例化。
+### dribble.h  和  dribble.cpp                          用于设置运球相关参数如运球者、目标点等。
+### field_analyzer.h  和  field_analyzer.cpp                   球员到达周期预测、射门可能性判断等多种场地相关计算和分析功能。
+### hold_ball.cpp                      目标球员号码、首球速度、踢球次数等。
+### hold_ball.h                        用于持球动作相关的定义。
+### neck_turn_to_receiver.cpp              包含执行转向接球者动作的逻辑，根据不同情况（如下次可踢球、自身位置等）决定颈部动作，如转向特定点、扫描场地或转向低可信度队友。
+### neck_turn_to_receiver.h                转向接球者的颈部动作。
+### pass.cpp                 初始化传球相关的属性并调用父类构造函数。
+### pass.h              包含传球相关的成员变量和构造函数声明。
+### pass_checker.h                 用于检查传球的有效性。
+### positioning.cpp               用于定位动作。
+### positioning.h                      包含定位动作的构造函数声明。
+### predict_ball_object.h               用于存储预测的球的位置和速度信息。
+### predict_state.h                包含预测的球场状态信息，如球、球员的预测状态等。
+### predict_state.cpp                   用于初始化和更新预测的球场状态。
+### predict_player_object.h                     用于存储预测的球员状态信息。
+### shoot_generator.h             包含射门路线相关的结构体Course、容器类型及生成、评估射门路线等方法声明，用于生成和管理射门路线。
+### shoot.h                      用于表示射门动作，包含构造函数等。
+### shoot_generator.cpp                    包括单例实例化、生成射门路线、检查对手和守门员是否能拦截、评估射门路线等功能。
+### self_pass_generator.cpp                包括清空数据、生成自传球路线、检查能否踢球、检查对手是否干扰等，用于生成自传球路线。
+### strict_check_pass_generator.cpp          包含传球相关的各类函数，如预测接球者和对手到达目标位置的步数、更新传球者和接球者信息、创建不同类型传球路线、清除类成员变量等，用于生成和处理传球策略。
+### short_dribble_generator.cpp              实现了短距离带球相关功能，包括创建带球路线、模拟带球过程中的冲刺和踢球动作、检查对手是否会干扰带球等，用于生成短距离带球策略。
+### tackle_generator.h 
+### tackle_generator.cpp                  包括铲球候选结果的生成、评估，以及预测对手到达球的步数等具体逻辑。
