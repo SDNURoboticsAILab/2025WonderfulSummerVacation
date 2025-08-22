@@ -1,0 +1,75 @@
+# Cyrus2D_1
+
+## 主要包含四个文件夹，分别是m4文件夹、scripts文件夹、src文件夹、sill文件夹。
+
+### src文件夹包含智能体的行为控制代码，比如移动传球团队协作之类的。
+
+#### coach:在比赛中做决策，换队员，传递信息之类。
+
+#### trainer：在模拟环境中安排训练任务，比如移动球员，测拦截能力等。
+
+#### player：各个动作写的都很详细，包括很多动作，比如身体转向，转向点，转向角度，突发情况（在危险时将球踢出），自己能否踢球（有更近的己方球员时不可），递归寻找踢球的方向，腿怎么动，还有视野控制，拦截球等。
+
+### scripts文件夹：训练及评估，会记录训练过程的信息，然后通过accuracy函数记录准确率。
+
+### ssil文件夹：管理球员和教练程序的启动和终止，通过不同的顺序和时间间隔
+
+## player文件夹——basic_actions文件夹
+
+### arm_off.h     放下手臂 动作的接口，其执行逻辑在basic_actions.cpp中实现，返回布尔值以判断手臂是否能成功放下。
+### arm_point_to_point.h    手指向特定点 动作的接口，执行逻辑在basic_actions.cpp中实现，返回布尔值以判断是否能成功指向目标点。
+### basic_actions.cpp 和  basic_actions.h     实现基础动作的核心逻辑，包含arm_off.h和arm_point_to_point.h中定义的动作执行函数，是手臂控制等基础操作的具体实现载体
+### bhv_before_kick_off.cpp  和  bhv_before_kick_off.h   处理开球前的核心逻辑，包括：球员初始定位与朝向调整、位置无效时重新扫描场地、进球后的复位处理、开球越位规则判断、确定开球方并移动到指定位置、开球前的场地扫描操作。
+### bhv_body_neck_to_ball.h     身体和脖子朝向球 的行为逻辑：计算球的下一个位置，优先转动身体以快速对准球。
+### bhv_body_neck_to_point.h    身体和脖子朝向特定方向 的行为逻辑：支持一次转向或两次转向策略，优先转动身体以提高效率
+### bhv_emergency.cpp  和  bhv_emergency.h           处理 紧急情况 下的行为，如丢失球或位置信息时重新扫描场地
+### bhv_go_to_point_look_ball.cpp 和  bhv_go_to_point_look_ball.h          在移动到指定位置的同时，保持脖子或身体朝向球。
+### bhv_neck_body_to_ball.h         优先转动脖子、其次转动身体朝向球 的行为逻辑，适用于身体不便大幅转动的场景。
+### bhv_neck_body_to_point.h        优先转动脖子、其次转动身体朝向特定点 的行为逻辑，侧重颈部微调
+### bhv_scan_field.cpp  和   bhv_scan_field.h            实现 场地扫描 行为逻辑，包括寻找球、识别场地标记或边界等。
+### body_advance_ball2009.cpp  和   body_advance_ball2009.h             实现 带球前进 逻辑，侧重长远距离带球
+### body_advance_ball.h
+### body_clear_ball2009.cpp   和    body_clear_ball2009.h       实现 带球解围（clear） 逻辑，用于将球从危险区域踢向安全区域。
+### body_clear_ball.h
+### body_dribble2008.cpp  和  body_dribble2008.h          实现 连续带球 逻辑，侧重精细控球和短距离推进
+### body_dribble.h
+### body_go_to_point.cpp  和   body_go_to_point.h            移动到指定位置 的基础逻辑，不包含避障处理。
+### body_go_to_point_dodge.cpp  和  body_go_to_point_dodge.h  绕开障碍物移动到指定位置 的路径计算逻辑，在基础移动上增加障碍物检测与规避策略。
+### body_hold_ball2008.cpp  和  body_hold_ball2008.h       实现 控球保持 逻辑，用于稳定控制球权，避免被对手抢断
+### body_hold_ball.h
+### body_intercept2018.cpp  和  body_intercept2018.h        实现 拦截球 逻辑，用于抢夺对手控球或阻止球进入危险区域
+### body_intercept.h
+### body_kick_one_step.cpp  和  body_kick_one_step.h         实现 快速踢球 动作，适用于短距离、即时性的踢球需求。
+### body_kick_to_relative.cpp  和  body_kick_to_relative.h      实现 向相对位置踢球 的逻辑，基于自身坐标或方向计算目标位置。
+### body_pass.cpp  和  body_pass.h                 实现 传球 核心逻辑，包括传给队友的目标选择和力度控制。
+### body_smart_kick.cpp  和  body_smart_kick.h           实现 多步踢球控制 逻辑，结合环境判断选择踢球策略（如力度、角度调整）。
+### body_stop_ball.cpp   和 body_stop_ball.h           实现 停球 动作逻辑，用于将移动中的球稳定控制在自身可控范围
+### body_stop_dash.cpp  和  body_stop_dash.h      停止冲刺，用于紧急减速或调整移动状态
+### body_tackle_to_point.h              铲球到特定点，抢夺球权
+### body_turn_to_angle.h             身体转向指定角度 的动作接口。
+### body_turn_to_ball.h              身体直接转向球 的动作接口。
+### body_turn_to_point.h             身体转向特定点 的动作接口。
+### focus_move_to_point.cpp  和  focus_move_to_point.h               专注移动到目标点 的逻辑，可能包含更精细的路径规划或优先级控制。
+### focus_reset.cpp  和  focus_reset.h               重置专注状态 的逻辑，用于中断当前移动或重新规划目标。
+### intention_dribble2008.cpp  和  intention_dribble2008.h                 决策是否启动带球动作
+### intention_time_limit_action.cpp  和  intention_time_limit_action.h           限时动作意图 的逻辑，用于控制动作执行的时间范围，避免超时。
+### intercept_evaluator.cpp  和  intercept_evaluator.h                   实现 拦截评估 逻辑，判断拦截成功的可能性、最佳拦截位置等。
+### intercept_evaluator_factory.cpp  和  intercept_evaluator_factory.h              评估
+### kick_table.cpp  和  kick_table.h                包含踢球参数表（如不同距离、角度对应的踢球力度等）
+### Makefile
+### neck_scan_field.cpp  和  neck_scan_field.h           实现 颈部扫描场地 的动作逻辑，通过转动脖子扩大视野范围。
+### neck_scan_players.cpp  和  neck_scan_players.h       实现 颈部扫描球员 的动作逻辑，用于识别队友或对手的位置。
+### neck_turn_to_ball_and_player.cpp  和  neck_turn_to_ball_and_player.h  颈部同时朝向球和特定球员 的逻辑，可能用于兼顾球权和对手或队友位置。
+### neck_turn_to_ball.h                    脖子转向球 的动作接口
+### neck_turn_to_ball_or_scan.cpp  和  neck_turn_to_ball_or_scan.h     颈部优先朝向球，若未找到则扫描         
+### neck_turn_to_goalie_or_scan.cpp  和  neck_turn_to_goalie_or_scan.h          颈部优先朝向守门员，若未找到则扫描
+### neck_turn_to_low_conf_teammate.cpp  和  neck_turn_to_low_conf_teammate.h
+### neck_turn_to_player_or_scan.cpp  和  neck_turn_to_player_or_scan.h            颈部优先朝向特定球员，若未找到则扫描
+### neck_turn_to_point.h               脖子转向特定点 的动作接口。
+### neck_turn_to_relative.h            脖子转向相对位置 的动作接口（如相对于自身的某个方向）。
+### obsolete
+#### body_intercept2009.cpp  和  body_intercept2009.h
+### view_change_width.h           调整视野宽度
+### view_normal.h            正常视野
+### view_synch.cpp  和  view_synch.h                视野同步，用于协调身体转动与视野更新
+### view_wide.h             扩大观察范围。
